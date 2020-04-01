@@ -52,7 +52,10 @@
         <name>Create_User_Log_In_Record</name>
         <label>Create User Log In Record</label>
         <locationX>372</locationX>
-        <locationY>291</locationY>
+        <locationY>260</locationY>
+        <faultConnector>
+            <targetReference>Error</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Login_Date__c</field>
             <value>
@@ -72,6 +75,9 @@
         <label>Create User Log In Record</label>
         <locationX>622</locationX>
         <locationY>50</locationY>
+        <faultConnector>
+            <targetReference>Error</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>First_Login__c</field>
             <value>
@@ -102,6 +108,9 @@
         <connector>
             <targetReference>Login_Records_Found</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Error</targetReference>
+        </faultConnector>
         <filters>
             <field>Login_Date__c</field>
             <operator>EqualTo</operator>
@@ -125,10 +134,10 @@
         <queriedFields>Login_Date__c</queriedFields>
     </recordLookups>
     <screens>
-        <name>Login_Here</name>
-        <label>Login Here</label>
-        <locationX>140</locationX>
-        <locationY>336</locationY>
+        <name>Error</name>
+        <label>Error</label>
+        <locationX>372</locationX>
+        <locationY>703</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -139,7 +148,7 @@
         <locationX>50</locationX>
         <locationY>50</locationY>
         <connector>
-            <targetReference>Login_Here</targetReference>
+            <targetReference>Lookup_Login_Record</targetReference>
         </connector>
     </start>
     <status>Active</status>
