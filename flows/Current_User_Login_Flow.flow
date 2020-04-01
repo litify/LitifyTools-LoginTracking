@@ -124,11 +124,22 @@
         <queriedFields>First_Login__c</queriedFields>
         <queriedFields>Login_Date__c</queriedFields>
     </recordLookups>
+    <screens>
+        <name>Login_Here</name>
+        <label>Login Here</label>
+        <locationX>140</locationX>
+        <locationY>336</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <start>
         <locationX>50</locationX>
         <locationY>50</locationY>
         <connector>
-            <targetReference>Lookup_Login_Record</targetReference>
+            <targetReference>Login_Here</targetReference>
         </connector>
     </start>
     <status>Active</status>
