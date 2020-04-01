@@ -131,7 +131,7 @@
             <targetReference>Lookup_Login_Record</targetReference>
         </connector>
     </start>
-    <status>Inactive</status>
+    <status>Obsolete</status>
     <variables>
         <name>svar_LoginRecord</name>
         <dataType>SObject</dataType>
