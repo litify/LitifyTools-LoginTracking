@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Logins</fullName>
+    <types>
+        <members>Login__c.First_Login__c</members>
+        <members>Login__c.Login_Date__c</members>
+        <members>Login__c.User__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Login__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Current_User_Login_Flow</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>Login__c-Login Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>User_Login_Tracking</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>litify_pm__Litify/New_Logins_Report_2Li</members>
+        <name>Report</name>
+    </types>
+    <version>47.0</version>
+</Package>

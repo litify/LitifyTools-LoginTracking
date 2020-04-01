@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <decisions>
+        <description>Check to see if a login for the current day exists already or not. If not, create a new login marked as the first for the day. Otherwise, just create another login record.</description>
+        <name>Login_Records_Found</name>
+        <label>Login Records Found?</label>
+        <locationX>365</locationX>
+        <locationY>52</locationY>
+        <defaultConnector>
+            <targetReference>Create_User_Log_In_Record_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>First Login of the Day</defaultConnectorLabel>
+        <rules>
+            <name>Additional_Daily_Login</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>svar_LoginRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_User_Log_In_Record</targetReference>
+            </connector>
+            <label>Additional Daily Login</label>
+        </rules>
+    </decisions>
+    <description>Creates a new Login record when the user logs in.</description>
+    <formulas>
+        <description>The Current User ID</description>
+        <name>for_UserID</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <interviewLabel>User Login Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>User Login Flow</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_User_Log_In_Record</name>
+        <label>Create User Log In Record</label>
+        <locationX>372</locationX>
+        <locationY>291</locationY>
+        <inputAssignments>
+            <field>Login_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>for_UserID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Login__c</object>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_User_Log_In_Record_0</name>
+        <label>Create User Log In Record</label>
+        <locationX>622</locationX>
+        <locationY>50</locationY>
+        <inputAssignments>
+            <field>First_Login__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Login_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>for_UserID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Login__c</object>
+    </recordCreates>
+    <recordLookups>
+        <description>Lookup to see if there are any existing Login records.</description>
+        <name>Lookup_Login_Record</name>
+        <label>Lookup Login Record</label>
+        <locationX>211</locationX>
+        <locationY>50</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Login_Records_Found</targetReference>
+        </connector>
+        <filters>
+            <field>Login_Date__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>OwnerId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>for_UserID</elementReference>
+            </value>
+        </filters>
+        <object>Login__c</object>
+        <outputReference>svar_LoginRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>First_Login__c</queriedFields>
+        <queriedFields>Login_Date__c</queriedFields>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Lookup_Login_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>svar_LoginRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Login__c</objectType>
+    </variables>
+</Flow>
